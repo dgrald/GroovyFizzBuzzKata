@@ -1,12 +1,6 @@
 /**
  * Created by dylangrald on 6/25/15.
  */
-
-object BowlingFrame {
-  def strike: BowlingFrame = new RegularBowlingFrame(10, 0)
-  def gutterBall: BowlingFrame = new RegularBowlingFrame(0, 0)
-}
-
 abstract class BowlingFrame {
   def firstRoll: Int
   def secondRoll: Int
@@ -49,7 +43,6 @@ class BonusBowlingFrame(val firstRoll: Int) extends BowlingFrame {
   override def isStrike: Boolean = false
 
   override def isSpare: Boolean = false
-
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[BonusBowlingFrame]
 

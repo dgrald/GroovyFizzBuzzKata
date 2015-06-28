@@ -7,6 +7,11 @@ class BowlingScorerTests extends FlatSpec with Matchers {
 
   val bowlingScorer = BowlingScorer.getInstance
 
+  object BowlingFrame {
+    def strike: BowlingFrame = new RegularBowlingFrame(10, 0)
+    def gutterBall: BowlingFrame = new RegularBowlingFrame(0, 0)
+  }
+
   "The bowling scorer" should "return 0 when there are all gutter balls" in {
     val gutterBalls = List.fill(10)(BowlingFrame.gutterBall)
     val actualScore = bowlingScorer.calculateScores(gutterBalls)
