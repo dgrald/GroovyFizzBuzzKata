@@ -1,2 +1,2 @@
 # ScalaBowlingGameKata
-Bowling game kata. Still refactoring.
+Bowling game kata written in Scala.
