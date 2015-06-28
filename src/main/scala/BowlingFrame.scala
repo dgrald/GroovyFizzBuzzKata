@@ -57,4 +57,6 @@ class BonusBowlingFrame(val firstRoll: Int) extends BowlingFrame {
     val state = Seq(firstRoll)
     state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
   }
+
+  override def toString = s"BonusBowlingFrame($firstRoll)"
 }

@@ -43,21 +43,20 @@ private class BowlingScorerImplementation extends BowlingScorer {
   private def totalFrameForStrike(framesRelevantToScore: Seq[BowlingFrame]): Int = framesRelevantToScore match {
     case Seq() => 0
     case Seq(oneFrame) => oneFrame.total
-    case first +: second +: _ => scoreFrame(first, List(second))
+    case first +: second +: _ =>
+      if(first.isStrike) {
+        first.total + second.firstRoll
+      } else {
+        first.total
+      }
   }
 
-  private def totalFrameForSpare(frames: Seq[BowlingFrame]): Int = frames match {
+  private def totalFrameForSpare(framesRelevantToScore: Seq[BowlingFrame]): Int = framesRelevantToScore match {
     case Seq() => 0
-    case firstFrame +: _ =>
-      if(firstFrame.isStrike) {
-        scoreFrame(firstFrame, List())
-      } else {
-        firstFrame.firstRoll
-      }
+    case firstFrame +: _ => firstFrame.firstRoll
   }
 
   private def scoreOfGameIsComplete(frameNum: Int, restOfFrames: Seq[BowlingFrame]): Boolean = {
     frameNum >= 10 && restOfFrames.size <= 1
   }
-
 }

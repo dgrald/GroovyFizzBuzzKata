@@ -40,4 +40,11 @@ class BowlingScorerTests extends FlatSpec with Matchers {
     assert(actualScore == 150)
 
   }
+
+  it should "return the correct score for a spare followed by a strike" in {
+    val scores = List(new RegularBowlingFrame(6,4), BowlingFrame.strike, new RegularBowlingFrame(6,4), BowlingFrame.strike, new RegularBowlingFrame(6,4)) ++ List.fill(5)(BowlingFrame.gutterBall)
+    val actualScore = bowlingScorer.calculateScores(scores)
+
+    assert(actualScore == 90)
+  }
 }
