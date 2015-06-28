@@ -36,16 +36,7 @@ private class BowlingGameImplementation(calculator: BowlingScorer) extends Bowli
   }
 
   private def addScoreForBonusFrame(rollScore: Int) = {
-    if(rollNum == 1) {
-      val tenthFrame = frames.last
-      if(tenthFrame.isStrike) {
-        rollNum = 2
-      } else if (tenthFrame.isSpare) {
-        frames = frames :+ new BonusBowlingFrame(rollScore, None)
-      }
-    } else {
-      frames = frames :+ new BonusBowlingFrame(rolls.last, Some(rollScore))
-    }
+    frames = frames :+ new BonusBowlingFrame(rollScore)
   }
 
   private def addRegularFrameScore(rollScore: Int): Unit = {

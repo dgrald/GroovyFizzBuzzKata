@@ -12,6 +12,8 @@ abstract class BowlingFrame {
   def secondRoll: Int
   def isStrike: Boolean
   def isSpare: Boolean
+
+  def total: Int = firstRoll + secondRoll
 }
 
 class RegularBowlingFrame(val firstRoll: Int, val secondRoll: Int) extends BowlingFrame {
@@ -41,25 +43,25 @@ class RegularBowlingFrame(val firstRoll: Int, val secondRoll: Int) extends Bowli
   override def toString = s"RegularBowlingFrame($firstRoll, $secondRoll)"
 }
 
-class BonusBowlingFrame(val firstRoll: Int, val secondRollOption: Option[Int]) extends BowlingFrame {
+class BonusBowlingFrame(val firstRoll: Int) extends BowlingFrame {
   override def secondRoll: Int = 0
 
   override def isStrike: Boolean = false
 
   override def isSpare: Boolean = false
 
+
   def canEqual(other: Any): Boolean = other.isInstanceOf[BonusBowlingFrame]
 
   override def equals(other: Any): Boolean = other match {
     case that: BonusBowlingFrame =>
       (that canEqual this) &&
-        firstRoll == that.firstRoll &&
-        secondRollOption == that.secondRollOption
+        firstRoll == that.firstRoll
     case _ => false
   }
 
   override def hashCode(): Int = {
-    val state = Seq(firstRoll, secondRollOption)
+    val state = Seq(firstRoll)
     state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
   }
 }

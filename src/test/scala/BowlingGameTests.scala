@@ -22,7 +22,7 @@ class BowlingGameTests extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "create the bonus frame correctly correctly when there is a strike on the last frame" in {
-    val expectedScores = List.fill(10)(new RegularBowlingFrame(10,0)) :+ new BonusBowlingFrame(10, Some(10))
+    val expectedScores = List.fill(10)(new RegularBowlingFrame(10,0)) :+ new BonusBowlingFrame(10) :+ new BonusBowlingFrame(10)
     val expectedScore = 300
     val scorerMock = mock[BowlingScorer]
     when(scorerMock.calculateScores(expectedScores)).thenReturn(expectedScore)
@@ -36,7 +36,7 @@ class BowlingGameTests extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "create the bonus frame correctly when there is a spare on the last frame" in {
-    val expectedScores = List.fill(10)(new RegularBowlingFrame(5,5)) :+ new BonusBowlingFrame(5, None)
+    val expectedScores = List.fill(10)(new RegularBowlingFrame(5,5)) :+ new BonusBowlingFrame(5)
     val expectedScore = 150
     val scorerMock = mock[BowlingScorer]
     when(scorerMock.calculateScores(expectedScores)).thenReturn(expectedScore)

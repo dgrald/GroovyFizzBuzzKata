@@ -27,4 +27,22 @@ class BowlingFrameTests extends FlatSpec with Matchers {
     assert(strike.isStrike)
     assert(!strike.isSpare)
   }
+
+  it should "total the pins knocked down in the frame" in {
+    val frame = new RegularBowlingFrame(5,5)
+
+    assert(frame.total == 10)
+
+    val bonusFrame = new BonusBowlingFrame(9)
+
+    assert(bonusFrame.total == 9)
+
+  }
+
+  "The bonus bowling frame" should "return false for being a strike or a spare" in {
+    val bonusRound = new BonusBowlingFrame(10)
+
+    assert(!bonusRound.isStrike)
+    assert(!bonusRound.isSpare)
+  }
 }

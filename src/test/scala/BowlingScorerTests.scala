@@ -22,14 +22,14 @@ class BowlingScorerTests extends FlatSpec with Matchers {
   }
 
   it should "return 300 points in a perfect game" in {
-    val scores = List.fill(10)(BowlingFrame.strike) :+ new BonusBowlingFrame(10, Some(10))
+    val scores = List.fill(10)(BowlingFrame.strike) :+ new BonusBowlingFrame(10) :+ new BonusBowlingFrame(10)
     val actualScore = bowlingScorer.calculateScores(scores)
 
     assert(actualScore == 300)
   }
 
   it should "return 150 for ten straight frames of 5 pins on the first and 5 on the second followed by a bonus roll of 5" in {
-    val scores = List.fill(10)(new RegularBowlingFrame(5,5)) :+ new BonusBowlingFrame(5, None)
+    val scores = List.fill(10)(new RegularBowlingFrame(5,5)) :+ new BonusBowlingFrame(5)
     val actualScore = bowlingScorer.calculateScores(scores)
 
     assert(actualScore == 150)
