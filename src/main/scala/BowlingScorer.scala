@@ -32,15 +32,15 @@ private class BowlingScorerImplementation extends BowlingScorer {
     case Seq() => firstFrame.total
     case _ =>
       if(firstFrame.isStrike) {
-        firstFrame.total + totalFrameForStrike(restOfFrames)
+        firstFrame.total + totalBonusForStrike(restOfFrames)
       } else if(firstFrame.isSpare) {
-        firstFrame.total + totalFrameForSpare(restOfFrames)
+        firstFrame.total + totalBonusForSpare(restOfFrames)
       } else {
         firstFrame.total
       }
   }
 
-  private def totalFrameForStrike(framesRelevantToScore: Seq[BowlingFrame]): Int = framesRelevantToScore match {
+  private def totalBonusForStrike(framesRelevantToScore: Seq[BowlingFrame]): Int = framesRelevantToScore match {
     case Seq() => 0
     case Seq(oneFrame) => oneFrame.total
     case first +: second +: _ =>
@@ -51,7 +51,7 @@ private class BowlingScorerImplementation extends BowlingScorer {
       }
   }
 
-  private def totalFrameForSpare(framesRelevantToScore: Seq[BowlingFrame]): Int = framesRelevantToScore match {
+  private def totalBonusForSpare(framesRelevantToScore: Seq[BowlingFrame]): Int = framesRelevantToScore match {
     case Seq() => 0
     case firstFrame +: _ => firstFrame.firstRoll
   }
