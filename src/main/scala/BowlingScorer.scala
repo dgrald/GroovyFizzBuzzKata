@@ -21,10 +21,11 @@ private class BowlingScorerImplementation extends BowlingScorer {
     case Seq() => totalScore
     case firstFrame +: restOfFrames =>
       val scoreForFrame = scoreFrame(firstFrame, restOfFrames)
+      val newTotalScore = totalScore + scoreForFrame
       if(scoreOfGameIsComplete(frameNum, restOfFrames)) {
-        totalScore + scoreForFrame
+        newTotalScore
       } else {
-        calculateScoresRecursively(scores.tail, totalScore + scoreForFrame, frameNum + 1)
+        calculateScoresRecursively(scores.tail, newTotalScore, frameNum + 1)
       }
   }
 
