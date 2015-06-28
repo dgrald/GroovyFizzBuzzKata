@@ -67,24 +67,16 @@ private class Implementation extends BowlingScorer {
 
   def totalLastFrame(frame: BowlingFrame, frames: Seq[BowlingFrame]): Int = {
     val lastFrameTotal = frame.firstRoll + frame.secondRoll
-    if(frame.isStrike) {
+    if(frame.isStrike || frame.isSpare) {
       frames match {
         case Seq(someValue) => someValue match {
-          case bonus: BonusBowlingFrame => return lastFrameTotal + bonus.firstRoll + bonus.secondRollOption.getOrElse(0)
+          case bonus: BonusBowlingFrame =>
+            if(frame.isStrike) return lastFrameTotal + bonus.firstRoll + bonus.secondRollOption.getOrElse(0)
+            return lastFrameTotal + bonus.firstRoll
           case _ => throw new IllegalArgumentException(s"The 11th frame must be a bonus frame but was: ${someValue}")
         }
       }
     }
-
-    if(frame.isSpare) {
-      frames match {
-        case Seq(someValue) => someValue match {
-          case bonus: BonusBowlingFrame => return lastFrameTotal + bonus.firstRoll
-          case _ => throw new IllegalArgumentException(s"The 11th frame must be a bonus frame but was: ${someValue}")
-        }
-      }
-    }
-
     lastFrameTotal
   }
 
