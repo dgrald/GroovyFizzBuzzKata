@@ -22,9 +22,10 @@ private class BowlingScorerImplementation extends BowlingScorer {
     case firstFrame +: restOfFrames =>
       val scoreForFrame = scoreFrame(firstFrame, restOfFrames)
       if(scoreOfGameIsComplete(frameNum, restOfFrames)) {
-        return totalScore + scoreForFrame
+        totalScore + scoreForFrame
+      } else {
+        calculateScoresRecursively(scores.tail, totalScore + scoreForFrame, frameNum + 1)
       }
-      calculateScoresRecursively(scores.tail, totalScore + scoreForFrame, frameNum + 1)
   }
 
   private def scoreFrame(firstFrame: BowlingFrame, restOfFrames: Seq[BowlingFrame]): Int = restOfFrames match {
@@ -47,11 +48,11 @@ private class BowlingScorerImplementation extends BowlingScorer {
 
   def totalFrameForSpare(frames: Seq[BowlingFrame]): Int = frames match {
     case Seq() => 0
-    case first +: _ =>
-      if(first.isStrike) {
-        scoreFrame(first, List())
+    case firstFrame +: _ =>
+      if(firstFrame.isStrike) {
+        scoreFrame(firstFrame, List())
       } else {
-        first.firstRoll
+        firstFrame.firstRoll
       }
   }
 
