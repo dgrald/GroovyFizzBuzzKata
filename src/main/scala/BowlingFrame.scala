@@ -22,6 +22,23 @@ class RegularBowlingFrame(val firstRoll: Int, val secondRoll: Int) extends Bowli
   override def isSpare = {
     firstRoll + secondRoll == 10 && !isStrike
   }
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[RegularBowlingFrame]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: RegularBowlingFrame =>
+      (that canEqual this) &&
+        firstRoll == that.firstRoll &&
+        secondRoll == that.secondRoll
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(firstRoll, secondRoll)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
+
+  override def toString = s"RegularBowlingFrame($firstRoll, $secondRoll)"
 }
 
 class BonusBowlingFrame(val firstRoll: Int, val secondRollOption: Option[Int]) extends BowlingFrame {
@@ -30,4 +47,19 @@ class BonusBowlingFrame(val firstRoll: Int, val secondRollOption: Option[Int]) e
   override def isStrike: Boolean = false
 
   override def isSpare: Boolean = false
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[BonusBowlingFrame]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: BonusBowlingFrame =>
+      (that canEqual this) &&
+        firstRoll == that.firstRoll &&
+        secondRollOption == that.secondRollOption
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(firstRoll, secondRollOption)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }

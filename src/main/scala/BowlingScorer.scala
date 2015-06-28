@@ -4,14 +4,14 @@ import scala.annotation.tailrec
  * Created by dylangrald on 6/25/15.
  */
 object BowlingScorer {
-  def getInstance: BowlingScorer = new Implementation()
+  def getInstance: BowlingScorer = new BowlingScorerImplementation()
 }
 
 abstract class BowlingScorer {
   def calculateScores(scores: Seq[BowlingFrame]): Int
 }
 
-private class Implementation extends BowlingScorer {
+private class BowlingScorerImplementation extends BowlingScorer {
   override def calculateScores(scores: Seq[BowlingFrame]): Int = {
     calculateScoresRecursively(scores, 0, 1)
   }
