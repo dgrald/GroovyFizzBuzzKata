@@ -27,5 +27,4 @@ class BowlingFrameTests extends FlatSpec with Matchers {
     assert(strike.isStrike)
     assert(!strike.isSpare)
   }
-
 }

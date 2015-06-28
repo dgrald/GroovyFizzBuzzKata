@@ -35,11 +35,4 @@ class BowlingScorerTests extends FlatSpec with Matchers {
     assert(actualScore == 150)
 
   }
-
-  it should "return 215 for alternating 5,5,10,10" in {
-    val scores = List(new RegularBowlingFrame(5,5), BowlingFrame.strike, BowlingFrame.strike, new RegularBowlingFrame(5,5), BowlingFrame.strike, BowlingFrame.strike, new RegularBowlingFrame(5,5), BowlingFrame.strike, BowlingFrame.strike, new RegularBowlingFrame(5,5), new BonusBowlingFrame(10, None))
-    val actualScore = bowlingScorer.calculateScores(scores)
-
-    assert(actualScore == 215)
-  }
 }

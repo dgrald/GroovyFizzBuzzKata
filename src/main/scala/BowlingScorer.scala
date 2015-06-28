@@ -23,12 +23,12 @@ private class Implementation extends BowlingScorer {
       if(frameNum == 10) {
         return totalScore + totalLastFrame(firstFrame, restOfFrames)
       }
-      val scoreForFrame = scoreFrame(firstFrame, restOfFrames, frameNum)
+      val scoreForFrame = scoreFrame(firstFrame, restOfFrames)
       calculateScoresRecursively(scores.tail, totalScore + scoreForFrame, frameNum + 1)
     }
   }
 
-  private def scoreFrame(firstFrame: BowlingFrame, restOfFrames: Seq[BowlingFrame], frameNum: Int): Int = {
+  private def scoreFrame(firstFrame: BowlingFrame, restOfFrames: Seq[BowlingFrame]): Int = {
 
     val totalForFrame = firstFrame.firstRoll + firstFrame.secondRoll
 
@@ -36,29 +36,29 @@ private class Implementation extends BowlingScorer {
       case Seq() => totalForFrame
       case _ =>
         if(firstFrame.isStrike) {
-          return totalForFrame + totalFrameForStrike(restOfFrames, frameNum)
+          return totalForFrame + totalFrameForStrike(restOfFrames)
         }
 
         if(firstFrame.isSpare) {
-          return totalForFrame + totalFrameForSpare(restOfFrames, frameNum)
+          return totalForFrame + totalFrameForSpare(restOfFrames)
         }
         totalForFrame
     }
   }
 
-  def totalFrameForStrike(frames: Seq[BowlingFrame], frameNum: Int): Int = frames match {
+  def totalFrameForStrike(frames: Seq[BowlingFrame]): Int = frames match {
     case Seq() => 0
     case Seq(oneFrame) => oneFrame.firstRoll + oneFrame.secondRoll
     case first +: second +: _ => {
-      scoreFrame(first, List(second), frameNum)
+      scoreFrame(first, List(second))
     }
   }
 
-  def totalFrameForSpare(frames: Seq[BowlingFrame], frameNum: Int): Int = frames match {
+  def totalFrameForSpare(frames: Seq[BowlingFrame]): Int = frames match {
     case Seq() => 0
     case first +: _ => {
       if(first.isStrike) {
-        return scoreFrame(first, List(), frameNum)
+        return scoreFrame(first, List())
       }
       first.firstRoll
     }
