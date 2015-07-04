@@ -2,8 +2,8 @@
  * Created by dylangrald on 6/27/15.
  */
 object BowlingGame {
-  def getInstance(): BowlingGame = getInstance(BowlingScorer.getInstance)
-  def getInstance(calculator: BowlingScorer): BowlingGame = new BowlingGameImplementation(calculator)
+  def apply(): BowlingGame = apply(BowlingScorer())
+  def apply(calculator: BowlingScorer): BowlingGame = new BowlingGameImplementation(calculator)
 }
 
 abstract class BowlingGame {
@@ -36,18 +36,18 @@ private class BowlingGameImplementation(calculator: BowlingScorer) extends Bowli
   }
 
   private def addScoreForBonusFrame(rollScore: Int) = {
-    frames = frames :+ new BonusBowlingFrame(rollScore)
+    frames = frames :+ BowlingFrame(rollScore)
   }
 
   private def addRegularFrameScore(rollScore: Int): Unit = {
     if (isStrike(rollScore)) {
-      frames = frames :+ new RegularBowlingFrame(10, 0)
+      frames = frames :+ BowlingFrame(10, 0)
       frameNum += 1
     } else {
       if (rollNum == 1) {
         rollNum = 2
       } else {
-        frames = frames :+ new RegularBowlingFrame(rolls.last, rollScore)
+        frames = frames :+ BowlingFrame(rolls.last, rollScore)
         rollNum = 1
         frameNum += 1
       }

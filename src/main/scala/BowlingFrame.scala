@@ -10,7 +10,17 @@ abstract class BowlingFrame {
   def total: Int = firstRoll + secondRoll
 }
 
-class RegularBowlingFrame(val firstRoll: Int, val secondRoll: Int) extends BowlingFrame {
+object BowlingFrame {
+  def apply(firstRoll: Int, secondRoll: Int): BowlingFrame = {
+    new RegularBowlingFrame(firstRoll, secondRoll)
+  }
+
+  def apply(firstRoll: Int): BowlingFrame = {
+    new BonusBowlingFrame(firstRoll)
+  }
+}
+
+private class RegularBowlingFrame(val firstRoll: Int, val secondRoll: Int) extends BowlingFrame {
   override def isStrike = {
     firstRoll == 10
   }
@@ -37,7 +47,7 @@ class RegularBowlingFrame(val firstRoll: Int, val secondRoll: Int) extends Bowli
   override def toString = s"RegularBowlingFrame($firstRoll, $secondRoll)"
 }
 
-class BonusBowlingFrame(val firstRoll: Int) extends BowlingFrame {
+private class BonusBowlingFrame(val firstRoll: Int) extends BowlingFrame {
   override def secondRoll: Int = 0
 
   override def isStrike: Boolean = false

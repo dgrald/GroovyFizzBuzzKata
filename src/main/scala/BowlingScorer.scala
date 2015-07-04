@@ -4,7 +4,7 @@ import scala.annotation.tailrec
  * Created by dylangrald on 6/25/15.
  */
 object BowlingScorer {
-  def getInstance: BowlingScorer = new BowlingScorerImplementation()
+  def apply(): BowlingScorer = new BowlingScorerImplementation()
 }
 
 abstract class BowlingScorer {
